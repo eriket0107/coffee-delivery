@@ -17,7 +17,7 @@ export interface itemColorProp {
   circleColor: keyof typeof ITEM_COLORS
 }
 
-export const ItemImg = styled.span<itemColorProp>`
+export const ItemImg = styled.div<itemColorProp>`
   display: flex;
   align-items: center;
   border-radius: 50%;

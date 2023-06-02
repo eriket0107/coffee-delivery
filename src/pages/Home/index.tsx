@@ -4,7 +4,7 @@ import CoffeeBaner from '../../assets/coffee-banner.svg'
 
 import { Section } from './components/Section'
 import { Card } from './components/Card'
-import { ListItems } from './components/ItemsList'
+import { ListItems } from '../../components/ItemsList'
 import { coffeeList } from '../../assets/content/coffeeList'
 
 import { Banner, HomeMain, Title, HomeContainer, Information } from './styles'
