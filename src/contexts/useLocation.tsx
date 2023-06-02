@@ -9,6 +9,8 @@ import {
 interface GetLocationType {
   city: string
   state: string
+  latitude: number
+  longitude: number
 }
 
 interface GetLocationContextProps {
@@ -20,10 +22,14 @@ const GetLocationContext = createContext({} as GetLocationType)
 export function GetLocationProvider({ children }: GetLocationContextProps) {
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords
+      setLatitude(latitude)
+      setLongitude(longitude)
 
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAsw0IpGdAPPWHnCpsBWn6ERQ1x13xjFTc`,
@@ -37,7 +43,7 @@ export function GetLocationProvider({ children }: GetLocationContextProps) {
   }, [])
 
   return (
-    <GetLocationContext.Provider value={{ city, state }}>
+    <GetLocationContext.Provider value={{ city, state, latitude, longitude }}>
       {children}
     </GetLocationContext.Provider>
   )

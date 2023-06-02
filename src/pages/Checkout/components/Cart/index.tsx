@@ -1,7 +1,6 @@
 import { CartCard } from '../CartCard'
 import { useCart } from '../../../../contexts/useCart'
 import {
-  CheckoutButton,
   CheckoutItemsContainer,
   CheckoutItemsList,
   CheckoutValuesBox,
@@ -9,8 +8,13 @@ import {
   CheckoutValuesText,
 } from './styles'
 import { EmpetyState } from '../EmptyState'
+import { ReactNode } from 'react'
 
-export const CartComponent = () => {
+interface CartComponentProps {
+  children: ReactNode
+}
+
+export const CartComponent = ({ children }: CartComponentProps) => {
   const { cart, removeItemCart } = useCart()
 
   const subTotal = cart.reduce(
@@ -23,6 +27,7 @@ export const CartComponent = () => {
   const handleRemoveItem = (coffeeId: string) => {
     removeItemCart(coffeeId)
   }
+
   return (
     <CheckoutItemsContainer>
       <CheckoutItemsList>
@@ -55,10 +60,8 @@ export const CartComponent = () => {
             <strong>R${total?.toFixed(2)}</strong>
           </CheckoutValuesText>
         </CheckoutValuesContainer>
-        <CheckoutButton onClick={() => console.log(cart)}>
-          Confirmar Pedido
-        </CheckoutButton>
       </CheckoutValuesBox>
+      {children}
     </CheckoutItemsContainer>
   )
 }

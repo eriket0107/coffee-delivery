@@ -12,12 +12,11 @@ import {
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import CoffeLogo from '../../assets/coffee-delivery-logo.svg'
 import { useCart } from '../../contexts/useCart'
-import { useNavigate } from 'react-router-dom'
 
 export const Header = () => {
-  const { city, state } = useGetLocation()
+  const { city, state, latitude, longitude } = useGetLocation()
   const { cart } = useCart()
-  const navigate = useNavigate()
+  const url = `https://www.google.com/maps?q=${latitude},${longitude}`
 
   return (
     <HeaderContainer>
@@ -26,11 +25,11 @@ export const Header = () => {
       </HeaderLogo>
 
       <ActionsWrapper>
-        <LocationContainer>
+        <LocationContainer onClick={() => window.open(url, '_blank')}>
           <MapPin size={22} weight="fill" />
           {`${city}, ${state}`}
         </LocationContainer>
-        <CartContainer onClick={() => navigate('/checkout')}>
+        <CartContainer to="/checkout">
           {!!cart.length && <CartQuantity>{cart.length}</CartQuantity>}
           <ShoppingCart size={22} weight="fill" />
         </CartContainer>

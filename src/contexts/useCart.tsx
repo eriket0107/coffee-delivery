@@ -16,29 +16,29 @@ export interface Item {
   tags: string[]
   price: string
 }
-
-interface Address {
-  cep: string
-  street: string
-  number: string
-  complement: string
-  neighbor: string
-  city: string
-  uf: string
-}
-
 export type paymentType = 'credit' | 'debit' | 'money' | null
+
+export interface Address {
+  cep: string
+  bairro: string
+  rua: string
+  numero: string
+  cidade: string
+  complemento?: string
+  uf: string
+  payment: string
+}
 
 interface CartContextData {
   cart: Item[]
-  address: Address | undefined
   payment: paymentType
+  address: Address | undefined
   updateItemQuantity: (itemId: string, newQuantity: number) => void
   addItemToCart: (newItem: Item) => void
   removeItemCart: (itemId: string) => void
-  getAddress: (address: Address) => void
+  clearItems: () => void
+  getAddress: (value: Address) => void
 }
-
 interface CartContextProps {
   children: ReactNode
 }
@@ -76,8 +76,16 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     )
   }
 
-  const getAddress = (getAdd: Address) => {
-    setAddress(getAdd)
+  const getAddress = (value: Address) => {
+    setAddress(value)
+  }
+
+  const clearItems = () => {
+    setCart([])
+    localStorage.setItem(
+      '@coffee-delivery-data-v-1.0.0:cart',
+      JSON.stringify([]),
+    )
   }
 
   useEffect(() => {
@@ -106,8 +114,9 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
         updateItemQuantity,
         removeItemCart,
         payment: null,
-        getAddress,
         address,
+        getAddress,
+        clearItems,
       }}
     >
       {children}
