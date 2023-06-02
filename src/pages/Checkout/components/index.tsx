@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { useCart } from '../../../contexts/useCart'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { ChangeEvent, useState } from 'react'
 import {
   Bank,
   CreditCard,
@@ -22,11 +23,27 @@ import {
 import { Input } from './Input'
 import { Section } from './Section'
 import { CartComponent } from './Cart'
+import { useForm } from 'react-hook-form'
+
+const FormValueSchema = z.object({
+  cep: z.number().min(8, 'Digite todos os números').max(8, 'Apenas 8 números'),
+  rua: z
+    .number()
+    .min(5, 'Digite todos os números')
+    .max(30, 'Máximo carácteres'),
+})
+export type FormValue = z.infer<typeof FormValueSchema>
 
 export const Checkout = () => {
-  const { payment } = useCart()
+  const { register, handleSubmit, watch } = useForm<FormValue>({
+    resolver: zodResolver(FormValueSchema),
+  })
 
-  const [selectedOption, setSelectedOption] = useState(payment)
+  const [selectedOption, setSelectedOption] = useState('credit')
+
+  const handlePaymentMethodOption = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedOption(event.target.value)
+  }
 
   return (
     <CheckoutMain>
@@ -41,8 +58,12 @@ export const Checkout = () => {
               </div>
             </TextWrapper>
             <AdressForm>
-              <Input placeholder="Cep" />
-              <Input placeholder="Rua" />
+              <Input
+                placeholder="Cep"
+                {...(register('cep'), { valueAsNumber: true })}
+                type="number"
+              />
+              <Input placeholder="Rua" {...register('rua')} />
               <InputContainer>
                 <Input placeholder="Número" />
                 <Input placeholder="Complemento" />
@@ -71,9 +92,9 @@ export const Checkout = () => {
               <Label htmlFor="credit" checked={selectedOption === 'credit'}>
                 <CheckBox
                   type="radio"
-                  value={`${selectedOption}`}
+                  value={'credit'}
                   checked={selectedOption === 'credit'}
-                  onChange={() => setSelectedOption('credit')}
+                  onChange={(event) => handlePaymentMethodOption(event)}
                   id="credit"
                 />
                 <CreditCard />
@@ -83,9 +104,9 @@ export const Checkout = () => {
               <Label htmlFor="debit" checked={selectedOption === 'debit'}>
                 <CheckBox
                   type="radio"
-                  value={`${selectedOption}`}
+                  value={'debit'}
                   checked={selectedOption === 'debit'}
-                  onChange={() => setSelectedOption('debit')}
+                  onChange={(event) => handlePaymentMethodOption(event)}
                   id="debit"
                 />
                 <Bank />
@@ -94,9 +115,9 @@ export const Checkout = () => {
               <Label htmlFor="money" checked={selectedOption === 'money'}>
                 <CheckBox
                   type="radio"
-                  value={`${selectedOption}`}
+                  value={'money'}
                   checked={selectedOption === 'money'}
-                  onChange={() => setSelectedOption('money')}
+                  onChange={(event) => handlePaymentMethodOption(event)}
                   id="money"
                 />
                 <Money />

@@ -27,10 +27,12 @@ interface Address {
   uf: string
 }
 
+export type paymentType = 'credit' | 'debit' | 'money' | null
+
 interface CartContextData {
   cart: Item[]
   address: Address | undefined
-  payment: 'credit' | 'debit' | 'money' | null
+  payment: paymentType
   updateItemQuantity: (itemId: string, newQuantity: number) => void
   addItemToCart: (newItem: Item) => void
   removeItemCart: (itemId: string) => void
