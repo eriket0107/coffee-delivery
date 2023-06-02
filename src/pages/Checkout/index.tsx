@@ -29,8 +29,8 @@ import { useNavigate } from 'react-router-dom'
 
 export const Checkout = () => {
   const navigate = useNavigate()
-  const { getAddress, address } = useCart()
-  const { register, handleSubmit, watch, setValue } = useForm<Address>()
+  const { getAddress, address, clearItems, cart } = useCart()
+  const { register, handleSubmit, setValue } = useForm<Address>()
   const [selectedOption, setSelectedOption] = useState('money')
 
   const handlePaymentMethodOption = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,29 +38,23 @@ export const Checkout = () => {
     setSelectedOption(event.target.value)
   }
 
-  const cep = watch('cep')
-  const rua = watch('rua')
-  const numero = watch('numero')
-  const bairro = watch('bairro')
-  const cidade = watch('cidade')
-  const uf = watch('uf')
-
-  const isSubmitDisable = cep && rua && numero && bairro && cidade && uf
-  console.log('endereço', address)
-
   const handleNavigate = () => {
     navigate('/success')
   }
+
+  const handleFormSubmit = (data: Address) => {
+    getAddress(data)
+    if (!cart.length) return alert('Carrinho está vazio')
+    if (!data) return alert('Revise seu endereço e/ou método de pagamento.')
+    if (!address) return alert('Endereço inválido')
+    clearItems()
+    handleNavigate()
+  }
+
   return (
     <CheckoutMain>
       <Section title="Complete seu pedido">
-        <CheckoutForm
-          id="myForm"
-          onSubmit={handleSubmit((data) => {
-            console.log(data)
-            getAddress(data)
-          })}
-        >
+        <CheckoutForm id="myForm" onSubmit={handleSubmit(handleFormSubmit)}>
           <AdressContainer>
             <TextWrapper>
               <MapPinLine size={22} color="#C47F17" />
@@ -128,7 +122,6 @@ export const Checkout = () => {
               </InputContainer>
             </AdressForm>
           </AdressContainer>
-
           <PaymentContainer>
             <TextWrapper>
               <CurrencyDollar size={22} color="#8047F8" />
@@ -140,7 +133,6 @@ export const Checkout = () => {
                 </p>
               </div>
             </TextWrapper>
-
             <CheckBoxForm>
               <Label htmlFor="credit" checked={selectedOption === 'credit'}>
                 <CheckBox
@@ -155,7 +147,6 @@ export const Checkout = () => {
                 <CreditCard />
                 Cartão
               </Label>
-
               <Label htmlFor="debit" checked={selectedOption === 'debit'}>
                 <CheckBox
                   type="radio"
@@ -188,12 +179,7 @@ export const Checkout = () => {
       </Section>
       <Section title="Cafés selecionados ">
         <CartComponent>
-          <CheckoutButton
-            disabled={!isSubmitDisable}
-            form="myForm"
-            type="submit"
-            onClick={handleNavigate}
-          >
+          <CheckoutButton form="myForm" type="submit">
             Confirmar Pedido
           </CheckoutButton>
         </CartComponent>

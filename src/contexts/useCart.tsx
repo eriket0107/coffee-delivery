@@ -36,6 +36,7 @@ interface CartContextData {
   updateItemQuantity: (itemId: string, newQuantity: number) => void
   addItemToCart: (newItem: Item) => void
   removeItemCart: (itemId: string) => void
+  clearItems: () => void
   getAddress: (value: Address) => void
 }
 interface CartContextProps {
@@ -79,6 +80,14 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     setAddress(value)
   }
 
+  const clearItems = () => {
+    setCart([])
+    localStorage.setItem(
+      '@coffee-delivery-data-v-1.0.0:cart',
+      JSON.stringify([]),
+    )
+  }
+
   useEffect(() => {
     const cartLocalStorage: any = localStorage.getItem(
       '@coffee-delivery-data-v-1.0.0:cart',
@@ -97,7 +106,6 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     }
   }, [cart])
 
-  console.log(address)
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +116,7 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
         payment: null,
         address,
         getAddress,
+        clearItems,
       }}
     >
       {children}

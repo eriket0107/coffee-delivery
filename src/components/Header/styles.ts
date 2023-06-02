@@ -20,27 +20,40 @@ export const ActionsWrapper = styled.nav`
   gap: 0.75rem;
 `
 
-const BaseActionsContainer = styled.div`
+export const LocationContainer = styled.a`
   display: flex;
   padding: 0.5rem;
   border-radius: 0.375rem;
 
   font-size: 0.875rem;
   line-height: 1.138rem;
-`
-
-export const LocationContainer = styled(BaseActionsContainer)`
   gap: 0.25rem;
   align-items: center;
 
   background-color: ${({ theme }) => theme['purple-light']};
   color: ${({ theme }) => theme['purple-dark']};
-
+  transition: 200ms;
   svg {
     fill: ${({ theme }) => theme['purple-dark']};
+    transition: 200ms;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.purple};
+    color: ${({ theme }) => theme['purple-light']};
+    svg {
+      fill: ${({ theme }) => theme['purple-light']};
+    }
   }
 `
-export const CartContainer = styled(BaseActionsContainer)`
+export const CartContainer = styled(Link)`
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+
+  font-size: 0.875rem;
+  line-height: 1.138rem;
   align-items: center;
   background-color: ${({ theme }) => theme['yellow-light']};
   transition: 200ms;
