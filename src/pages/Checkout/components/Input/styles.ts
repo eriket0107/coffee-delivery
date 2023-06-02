@@ -11,8 +11,12 @@ export const InputContainer = styled.div`
 
   background: ${({ theme }) => theme['base-input']};
 
-  border: 1px solid #e6e5e5;
+  border: 1px solid ${({ theme }) => theme['base-button']};
   border-radius: 0.25rem;
+
+  &:focus-within {
+    border-color: ${({ theme }) => theme['yellow-dark']};
+  }
 `
 export const InputText = styled.input`
   background: none;
@@ -23,4 +27,14 @@ export const InputText = styled.input`
   letter-spacing: 0em;
   text-align: left;
   color: ${({ theme }) => theme['base-text']};
+  width: 100%;
+
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
 `

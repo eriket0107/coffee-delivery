@@ -64,29 +64,3 @@ export const CheckoutValuesText = styled.div`
     line-height: 130%;
   }
 `
-export const CheckoutButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem 0.5rem;
-  gap: 0.25rem;
-
-  background: ${({ theme }) => theme.yellow};
-  border-radius: 6px;
-
-  border: none;
-
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 160%;
-  color: ${({ theme }) => theme.white};
-  transition: 200ms;
-
-  &:hover {
-    cursor: pointer;
-    background: ${({ theme }) => theme['yellow-dark']};
-  }
-`

@@ -13,7 +13,7 @@ export const CheckoutMain = styled.main`
   }
 `
 
-export const CheckoutAddressContainer = styled.form`
+export const CheckoutForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -123,3 +123,35 @@ export const Label = styled.label<{ checked: boolean }>`
 `
 
 export const CheckBox = styled.input``
+
+export const CheckoutButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  gap: 0.25rem;
+  width: 100%;
+
+  background: ${({ theme }) => theme.yellow};
+  border-radius: 6px;
+
+  border: none;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 160%;
+  color: ${({ theme }) => theme.white};
+  transition: 200ms;
+
+  &:hover {
+    cursor: pointer;
+    background: ${({ theme }) => theme['yellow-dark']};
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme }) => theme['yellow-dark']};
+  }
+`
