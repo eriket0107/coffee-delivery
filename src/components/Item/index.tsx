@@ -5,7 +5,7 @@ import { ItemContainer, ItemImg, ItemText } from './styles'
 type colorType = 'yellow' | 'purple' | 'yellow_dark' | 'gray'
 
 interface itemsProps {
-  text: string
+  text: string | ReactNode
   circleColor: colorType
   icon: ReactNode
 }

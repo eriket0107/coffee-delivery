@@ -26,7 +26,7 @@ export interface Address {
   cidade: string
   complemento?: string
   uf: string
-  payment: string
+  payment: paymentType
 }
 
 interface CartContextData {
