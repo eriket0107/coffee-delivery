@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const CartCardContainer = styled.li`
   display: flex;
-  padding: 0.5rem 0.25rem 2.5rem;
+  padding: 0.5rem 0 2.5rem;
   width: 100%;
   justify-content: space-between;
-  border-bottom: 1px solid #e6e5e5;
+  border-bottom: 1px solid ${({ theme }) => theme['base-button']};
   gap: 3.125rem;
 `
 
