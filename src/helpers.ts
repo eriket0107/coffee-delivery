@@ -1,5 +1,3 @@
-import { paymentType } from './contexts/useCart'
-
 export function formatNumber(str: string): number {
   const number: number = parseFloat(str)
   return number
@@ -74,9 +72,7 @@ export function validateUF(sigla: string): boolean {
   return regex.test(sigla)
 }
 
-type paymentMethodType = paymentType | undefined
-
-export const paymentMethod = (method: paymentMethodType) => {
+export const paymentMethod = (method: string | undefined) => {
   if (method === 'credit') return 'Cartão de Crédito'
   else if (method === 'debit') return 'Débito'
   else return 'Dinheiro'
