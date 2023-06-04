@@ -23,7 +23,7 @@ import { Input } from './components/Input'
 import { Section } from './components/Section'
 import { CartComponent } from './components/Cart'
 import { useForm } from 'react-hook-form'
-import { Address, useCart } from '../../contexts/useCart'
+import { Address, useCart } from '../../hooks/useCart'
 import { states, validateCep, validateUF } from '../../helpers'
 import { useNavigate } from 'react-router-dom'
 

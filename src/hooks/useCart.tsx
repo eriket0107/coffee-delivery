@@ -89,9 +89,8 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
   }
 
   useEffect(() => {
-    const cartLocalStorage: any = localStorage.getItem(
-      '@coffee-delivery-data-v-1.0.0:cart',
-    )
+    const cartLocalStorage: string =
+      localStorage.getItem('@coffee-delivery-data-v-1.0.0:cart') || ''
     const cartLocalStorageJSON = JSON.parse(cartLocalStorage)
 
     if (cartLocalStorage) {

@@ -1,4 +1,4 @@
-import { useCart } from '../../contexts/useCart'
+import { useCart } from '../../hooks/useCart'
 import {
   ContentWrapper,
   InformationContainer,
@@ -6,7 +6,7 @@ import {
   TextContainer,
 } from './styles'
 import Ilustration from '../../assets/motoboy-ilustration.svg'
-import { useGetLocation } from '../../contexts/useLocation'
+import { useGetLocation } from '../../hooks/useLocation'
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { Item } from '../../components/Item'
 import { paymentMethod } from '../../helpers'

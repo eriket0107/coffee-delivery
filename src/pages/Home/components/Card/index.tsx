@@ -14,7 +14,7 @@ import {
 } from './styles'
 import { Tooltip } from 'react-tooltip'
 import { Plus, Minus, ShoppingCart } from 'phosphor-react'
-import { Item, useCart } from '../../../../contexts/useCart'
+import { Item, useCart } from '../../../../hooks/useCart'
 import { formatNumber } from '../../../../helpers'
 
 interface CoffeeCardPropsType {

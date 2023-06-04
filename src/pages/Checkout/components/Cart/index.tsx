@@ -1,5 +1,5 @@
 import { CartCard } from '../CartCard'
-import { useCart } from '../../../../contexts/useCart'
+import { useCart } from '../../../../hooks/useCart'
 import {
   CheckoutItemsContainer,
   CheckoutItemsList,

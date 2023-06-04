@@ -13,7 +13,7 @@ import {
 } from './styles'
 import { useEffect, useState } from 'react'
 import { formatNumber } from '../../../../helpers'
-import { Item, useCart } from '../../../../contexts/useCart'
+import { Item, useCart } from '../../../../hooks/useCart'
 
 interface CartCardProps {
   coffeeItem: Item

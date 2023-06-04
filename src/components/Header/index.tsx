@@ -1,4 +1,4 @@
-import { useGetLocation } from '../../contexts/useLocation'
+import { useGetLocation } from '../../hooks/useLocation'
 
 import {
   HeaderContainer,
@@ -11,7 +11,7 @@ import {
 
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import CoffeLogo from '../../assets/coffee-delivery-logo.svg'
-import { useCart } from '../../contexts/useCart'
+import { useCart } from '../../hooks/useCart'
 
 export const Header = () => {
   const { city, state, latitude, longitude } = useGetLocation()

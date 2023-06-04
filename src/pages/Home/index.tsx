@@ -8,7 +8,7 @@ import { ListItems } from '../../components/ItemsList'
 import { coffeeList } from '../../assets/content/coffeeList'
 
 import { Banner, HomeMain, Title, HomeContainer, Information } from './styles'
-import { Item, useCart } from '../../contexts/useCart'
+import { Item, useCart } from '../../hooks/useCart'
 
 export const Home = () => {
   const { addItemToCart } = useCart()

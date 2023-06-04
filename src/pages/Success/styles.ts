@@ -42,7 +42,6 @@ export const ContentWrapper = styled.div`
 export const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   padding: 2.5rem;
   flex: 1;
 
