@@ -11,7 +11,7 @@ import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { Item } from '../../components/Item'
 import { paymentMethod } from '../../helpers'
 
-export const SuccessPage = () => {
+export const Success = () => {
   const { address } = useCart()
   const { city, state } = useGetLocation()
 
