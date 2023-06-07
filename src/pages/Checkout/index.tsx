@@ -24,7 +24,7 @@ import { Section } from './components/Section'
 import { CartComponent } from './components/Cart'
 import { useForm } from 'react-hook-form'
 import { Address, useCart } from '../../hooks/useCart'
-import { states, validateCep, validateUF } from '../../helpers'
+import { states, validateCep, validateUF } from '../../utils/helpers'
 import { useNavigate } from 'react-router-dom'
 
 export const Checkout = () => {

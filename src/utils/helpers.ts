@@ -3,6 +3,11 @@ export function formatNumber(str: string): number {
   return number
 }
 
+export const priceFormat = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+})
+
 export const validateCep = (value: string) => {
   const cepRegex = /^[0-9]{8}$/
   return cepRegex.test(value)

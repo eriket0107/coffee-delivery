@@ -9,6 +9,7 @@ import {
 } from './styles'
 import { EmpetyState } from '../EmptyState'
 import { ReactNode } from 'react'
+import { priceFormat } from '../../../../utils/helpers'
 
 interface CartComponentProps {
   children: ReactNode
@@ -49,15 +50,15 @@ export const CartComponent = ({ children }: CartComponentProps) => {
         <CheckoutValuesContainer>
           <CheckoutValuesText>
             <div>Total de itens</div>
-            <div>R${subTotal?.toFixed(2)}</div>
+            <div>{priceFormat.format(subTotal)}</div>
           </CheckoutValuesText>
           <CheckoutValuesText>
             <div>Entrega</div>
-            <div>R${paymentFee?.toFixed(2)}</div>
+            <div>{priceFormat.format(paymentFee)}</div>
           </CheckoutValuesText>
           <CheckoutValuesText>
             <strong>Total</strong>
-            <strong>R${total?.toFixed(2)}</strong>
+            <strong>{priceFormat.format(total)}</strong>
           </CheckoutValuesText>
         </CheckoutValuesContainer>
       </CheckoutValuesBox>

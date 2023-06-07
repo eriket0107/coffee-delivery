@@ -9,7 +9,7 @@ import Ilustration from '../../assets/motoboy-ilustration.svg'
 import { useGetLocation } from '../../hooks/useLocation'
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { Item } from '../../components/Item'
-import { paymentMethod } from '../../helpers'
+import { paymentMethod } from '../../utils/helpers'
 
 export const Success = () => {
   const { address } = useCart()

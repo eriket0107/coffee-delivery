@@ -12,7 +12,7 @@ import {
   CartCardRemoveButton,
 } from './styles'
 import { useEffect, useState } from 'react'
-import { formatNumber } from '../../../../helpers'
+import { formatNumber, priceFormat } from '../../../../utils/helpers'
 import { Item, useCart } from '../../../../hooks/useCart'
 
 interface CartCardProps {
@@ -65,7 +65,7 @@ export const CartCard = ({ coffeeItem, removeItem }: CartCardProps) => {
           </CardCartButtonBox>
         </CardCartBox>
       </CardCartWrapper>
-      <CardCartPrice>R${itemPrice.toFixed(2)}</CardCartPrice>
+      <CardCartPrice>{priceFormat.format(itemPrice)}</CardCartPrice>
     </CartCardContainer>
   )
 }

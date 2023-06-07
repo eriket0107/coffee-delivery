@@ -15,7 +15,7 @@ import {
 import { Tooltip } from 'react-tooltip'
 import { Plus, Minus, ShoppingCart } from 'phosphor-react'
 import { Item, useCart } from '../../../../hooks/useCart'
-import { formatNumber } from '../../../../helpers'
+import { formatNumber, priceFormat } from '../../../../utils/helpers'
 
 interface CoffeeCardPropsType {
   coffeeItem: Item
@@ -79,8 +79,8 @@ export const Card = ({ coffeeItem, addItemToCart }: CoffeeCardPropsType) => {
       />
       <CardWrapper>
         <CardCurrency>
-          <div>R$</div>
-          <strong>{currentPrice.toFixed(2)}</strong>
+          {/* <div>R$</div> */}
+          <strong>{priceFormat.format(currentPrice)}</strong>
         </CardCurrency>
         <div>
           <CardQuantity>
