@@ -18,16 +18,24 @@ interface CartComponentProps {
 export const CartComponent = ({ children }: CartComponentProps) => {
   const { cart, removeItemCart } = useCart()
 
-  const subTotal = cart.reduce(
-    (acc, item) => Number(acc) + item.quantity * Number(item.price),
-    0,
-  )
-  const paymentFee = subTotal * 0.1
-  const total = paymentFee + subTotal
-
   const handleRemoveItem = (coffeeId: string) => {
     removeItemCart(coffeeId)
   }
+
+  const amount = cart.reduce(
+    (acc, item) => {
+      acc.subTotal = acc.subTotal + item.quantity * Number(item.price)
+      acc.fee = acc.subTotal * 0.1
+      acc.total = acc.subTotal + acc.fee
+
+      return acc
+    },
+    {
+      subTotal: 0,
+      fee: 0,
+      total: 0,
+    },
+  )
 
   return (
     <CheckoutItemsContainer>
@@ -50,15 +58,15 @@ export const CartComponent = ({ children }: CartComponentProps) => {
         <CheckoutValuesContainer>
           <CheckoutValuesText>
             <div>Total de itens</div>
-            <div>{priceFormat.format(subTotal)}</div>
+            <div>{priceFormat.format(amount.subTotal)}</div>
           </CheckoutValuesText>
           <CheckoutValuesText>
             <div>Entrega</div>
-            <div>{priceFormat.format(paymentFee)}</div>
+            <div>{priceFormat.format(amount.fee)}</div>
           </CheckoutValuesText>
           <CheckoutValuesText>
             <strong>Total</strong>
-            <strong>{priceFormat.format(total)}</strong>
+            <strong>{priceFormat.format(amount.total)}</strong>
           </CheckoutValuesText>
         </CheckoutValuesContainer>
       </CheckoutValuesBox>
