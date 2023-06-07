@@ -1,4 +1,16 @@
 import { ChangeEvent, useState } from 'react'
+
+import { useForm } from 'react-hook-form'
+import { useCart } from '../../hooks/useCart'
+
+import { useNavigate } from 'react-router-dom'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+
+import { Input } from './components/Input'
+import { Section } from './components/Section'
+import { CartComponent } from './components/Cart'
+import { states, validateUF } from '../../utils/helpers'
 import {
   Bank,
   CreditCard,
@@ -19,18 +31,31 @@ import {
   PaymentContainer,
   TextWrapper,
 } from './styles'
-import { Input } from './components/Input'
-import { Section } from './components/Section'
-import { CartComponent } from './components/Cart'
-import { useForm } from 'react-hook-form'
-import { Address, useCart } from '../../hooks/useCart'
-import { states, validateCep, validateUF } from '../../utils/helpers'
-import { useNavigate } from 'react-router-dom'
+
+const addressFormSchema = z.object({
+  cep: z.number().min(8, 'Informe a quantidade certa de dígitos'),
+  rua: z.string().min(1, 'Informe a rua'),
+  numero: z.number().min(1, 'Informe o número'),
+  complemento: z.string().optional(),
+  bairro: z.string().min(1, 'Informe o bairro'),
+  cidade: z.string().min(1, 'Informe a cidade'),
+  uf: z.string().min(2, 'Informe o UF').max(2),
+  payment: z
+    .string()
+    .refine(
+      (value) => value === 'credit' || value === 'debit' || value === 'money',
+    ),
+})
+
+type AddressFormData = z.infer<typeof addressFormSchema>
 
 export const Checkout = () => {
   const navigate = useNavigate()
   const { getAddress, address, clearItems, cart } = useCart()
-  const { register, handleSubmit, setValue } = useForm<Address>()
+  const { register, handleSubmit, setValue, formState } =
+    useForm<AddressFormData>({
+      resolver: zodResolver(addressFormSchema),
+    })
   const [selectedOption, setSelectedOption] = useState('money')
 
   const handlePaymentMethodOption = (event: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +67,7 @@ export const Checkout = () => {
     navigate('/success')
   }
 
-  const handleFormSubmit = (data: Address) => {
+  const handleFormSubmit = (data: AddressFormData) => {
     getAddress(data)
     if (!cart.length) return alert('Carrinho está vazio')
     if (!data) return alert('Revise seu endereço e/ou método de pagamento.')
@@ -50,7 +75,7 @@ export const Checkout = () => {
     clearItems()
     handleNavigate()
   }
-
+  console.log(formState.errors)
   return (
     <CheckoutMain>
       <Section title="Complete seu pedido">
@@ -69,7 +94,6 @@ export const Checkout = () => {
                 {...register('cep', {
                   required: true,
                   valueAsNumber: true,
-                  validate: validateCep,
                 })}
                 type="number"
               />
@@ -84,12 +108,10 @@ export const Checkout = () => {
                     required: true,
                     valueAsNumber: true,
                   })}
+                  minLength={1}
                   type="number"
                 />
-                <Input
-                  placeholder="Complemento"
-                  {...register('complemento', { required: true })}
-                />
+                <Input placeholder="Complemento" {...register('complemento')} />
               </InputContainer>
               <InputContainer>
                 <Input

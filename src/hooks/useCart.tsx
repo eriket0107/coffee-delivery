@@ -19,10 +19,10 @@ export interface Item {
 export type paymentType = 'credit' | 'debit' | 'money' | null
 
 export interface Address {
-  cep: string
+  cep: number
   bairro: string
   rua: string
-  numero: string
+  numero: number
   cidade: string
   complemento?: string
   uf: string

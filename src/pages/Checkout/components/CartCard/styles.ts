@@ -6,7 +6,7 @@ export const CartCardContainer = styled.li`
   width: 100%;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme['base-button']};
-  gap: 3.125rem;
+  gap: 3rem;
 `
 
 export const CardCartWrapper = styled.div`
