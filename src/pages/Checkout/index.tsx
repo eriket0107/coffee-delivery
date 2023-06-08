@@ -56,7 +56,7 @@ export const Checkout = () => {
     useForm<AddressFormData>({
       resolver: zodResolver(addressFormSchema),
     })
-  const [selectedOption, setSelectedOption] = useState('money')
+  const [selectedOption, setSelectedOption] = useState('')
 
   const handlePaymentMethodOption = (event: ChangeEvent<HTMLInputElement>) => {
     setValue('payment', event.target.value)
@@ -75,6 +75,7 @@ export const Checkout = () => {
     clearItems()
     handleNavigate()
   }
+
   console.log(formState.errors)
   return (
     <CheckoutMain>
@@ -160,8 +161,8 @@ export const Checkout = () => {
                 <CheckBox
                   type="radio"
                   value={'credit'}
-                  checked={selectedOption === 'credit'}
                   id="credit"
+                  checked={selectedOption === 'credit'}
                   {...register('payment', {
                     onChange: handlePaymentMethodOption,
                   })}
@@ -173,8 +174,8 @@ export const Checkout = () => {
                 <CheckBox
                   type="radio"
                   value={'debit'}
-                  checked={selectedOption === 'debit'}
                   id="debit"
+                  checked={selectedOption === 'debit'}
                   {...register('payment', {
                     onChange: handlePaymentMethodOption,
                   })}
@@ -186,11 +187,11 @@ export const Checkout = () => {
                 <CheckBox
                   type="radio"
                   value={'money'}
+                  id="money"
                   checked={selectedOption === 'money'}
                   {...register('payment', {
                     onChange: handlePaymentMethodOption,
                   })}
-                  id="money"
                 />
                 <Money />
                 Money
